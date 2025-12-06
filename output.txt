@@ -1,4 +1,4 @@
-I have updated the footer text color to black as requested, and committed these changes. The footer background and homepage theme remain dark blue as previously configured.
+I have updated the footer links to include the book modules and removed the redundant 'Book' link from the navbar, and committed these changes. The text color is black and the background is dark blue as configured.
 
 All tasks that I can directly implement or provide detailed instructions for have been completed. The project is currently at a stage where it requires your direct input and content creation for the remaining in-progress tasks.
 

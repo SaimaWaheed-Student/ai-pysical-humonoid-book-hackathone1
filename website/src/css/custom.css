@@ -29,5 +29,10 @@ html[data-theme='dark'] {
 
 .footer {
   background-color: var(--ifm-background-color);
-  color: #000000; /* Black text color for footer */
+  color: #000000 !important; /* Force black text color for footer */
+}
+
+/* Ensure links within the footer are also black */
+.footer a {
+  color: #000000 !important;
 }
