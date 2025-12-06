@@ -1,5 +1,5 @@
-I have completed and committed tasks T001, T002, and T003, which involved setting up the Docusaurus project and configuring its initial plugins and theme.
+I have completed and committed task T019, which involved creating the URDF viewer component.
 
-The next task is **T004: Set up the GitHub repository with a basic CI/CD workflow for deploying the Docusaurus site.** This task requires your intervention to create a GitHub repository and configure GitHub Actions.
+The next task is **T020: Record and edit a video tutorial: "Building a Robot in URDF" (10 min).** This task requires your intervention to create the video content.
 
-I have marked T004 as "in-progress" in the `tasks.md` file. Once you have set up the GitHub repository and the CI/CD workflow as instructed previously, please let me know, and I will mark T004 as complete and proceed with the remaining tasks.
+I have marked T020 as "in-progress" in the `tasks.md` file and provided detailed instructions. Once you have created and placed the video in the specified directory, please let me know, and I will mark T020 as complete and proceed with embedding it in the relevant lesson.
