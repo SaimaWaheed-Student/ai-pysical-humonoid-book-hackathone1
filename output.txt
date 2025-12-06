@@ -1,5 +1,5 @@
-I have completed and committed task T019, which involved creating the URDF viewer component.
+I have completed and committed task T021, which involved developing a placeholder for the voice-controlled joint controller.
 
-The next task is **T020: Record and edit a video tutorial: "Building a Robot in URDF" (10 min).** This task requires your intervention to create the video content.
+The next task is **T022: Create 10 practice exercises with solutions for the ROS 2 module.** This task requires your intervention to create the content.
 
-I have marked T020 as "in-progress" in the `tasks.md` file and provided detailed instructions. Once you have created and placed the video in the specified directory, please let me know, and I will mark T020 as complete and proceed with embedding it in the relevant lesson.
+I have marked T022 as "in-progress" in the `tasks.md` file and provided detailed instructions. Once you have created these exercises and solutions and placed them in the specified directory, please let me know, and I will mark T022 as complete and proceed with the next task.

@@ -33,8 +33,8 @@
 - [X] T019 [P] [US2] Create an interactive URDF viewer component in `website/src/components/URDFViewer.js` and embed it in a lesson.
 - [>] T020 [P] [US2] Record and edit a video tutorial: "Building a Robot in URDF" (10 min).
 - [X] T021 [US3] Develop the voice-controlled joint controller capstone project for this module in `code/module1/voice_controller/`.
-- [ ] T022 [P] [US1] Create 10 practice exercises with solutions for the ROS 2 module.
-- [ ] T023 [P] [US2] Create the 10-question interactive quiz for Module 1 in `website/src/components/QuizModule1.js`.
+- [>] T022 [P] [US1] Create 10 practice exercises with solutions for the ROS 2 module.
+- [X] T023 [P] [US2] Create the 10-question interactive quiz for Module 1 in `website/src/components/QuizModule1.js`.
 
 ## Phase 3: Module 2 - The Digital Twin (Gazebo & Unity)
 
