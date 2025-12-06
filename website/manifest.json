@@ -1,0 +1,16 @@
+{
+  "short_name": "MySite",
+  "name": "My Docusaurus Site",
+  "icons": [
+    {
+      "src": "/img/docusaurus.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#315481",
+  "background_color": "#315481"
+}

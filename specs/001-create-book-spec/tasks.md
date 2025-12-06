@@ -10,13 +10,13 @@
 - [X] T001 [P] [US3] Install Node.js and create a new Docusaurus project in `website/`.
 - [X] T002 [P] [US2] Configure a custom theme with a dark blue and neon green robotics color scheme in `website/src/css/custom.css`.
 - [X] T003 [P] [US2] Install and configure Docusaurus plugins: image optimization, PWA, and search in `website/docusaurus.config.js`.
-- [>] T004 [P] Set up the GitHub repository with a basic CI/CD workflow for deploying the Docusaurus site.
-- [ ] T005 [US3] Create the Docker development environment with Ubuntu 22.04 and ROS 2 Humble in `code/docker/Dockerfile`.
-- [ ] T006 [US3] Install Gazebo and the ROS 2 Gazebo plugins in the Dockerfile.
-- [ ] T007 [US3] Install NVIDIA container toolkit dependencies for Isaac Sim in the Dockerfile.
-- [ ] T008 [P] [US1] Create the initial sidebar structure for the 4 modules in `website/sidebars.js`.
-- [ ] T009 [P] [US1] Create placeholder markdown files for all 12 lessons in `website/docs/`.
-- [ ] T010 [P] [US2] Add a 3D model viewer component (e.g., `<model-viewer>`) to the Docusaurus project in `website/src/components/`.
+- [X] T004 [P] Set up the GitHub repository with a basic CI/CD workflow for deploying the Docusaurus site.
+- [X] T005 [US3] Create the Docker development environment with Ubuntu 22.04 and ROS 2 Humble in `code/docker/Dockerfile`.
+- [X] T006 [US3] Install Gazebo and the ROS 2 Gazebo plugins in the Dockerfile.
+- [X] T007 [US3] Install NVIDIA container toolkit dependencies for Isaac Sim in the Dockerfile.
+- [X] T008 [P] [US1] Create the initial sidebar structure for the 4 modules in `website/sidebars.js`.
+- [X] T009 [P] [US1] Create placeholder markdown files for all 12 lessons in `website/docs/`.
+- [X] T010 [P] [US2] Add a 3D model viewer component (e.g., `<model-viewer>`) to the Docusaurus project in `website/src/components/`.
 
 ## Phase 2: Module 1 - The Robotic Nervous System (ROS 2)
 
