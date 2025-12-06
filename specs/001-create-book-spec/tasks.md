@@ -25,10 +25,10 @@
 - [X] T011 [US1] Write lesson "Introduction to ROS 2" (1000 words) in `website/docs/module1-ros2/lesson1.md`.
 - [X] T012 [P] [US1] Create a comparison table of ROS 1 vs. ROS 2 features in the introduction lesson.
 - [X] T013 [US3] Create a ROS 2 package for a Python publisher and subscriber in `code/module1/pub_sub_py/`.
-- [ ] T014 [US3] Implement the rclpy publisher and subscriber nodes.
-- [ ] T015 [US3] Add unit tests for the pub/sub nodes and a `colcon test` script.
-- [ ] T016 [US3] Create a ROS 2 package for a service server and client in `code/module1/service_py/`.
-- [ ] T017 [US3] Create a ROS 2 package for an action server and client in `code/module1/action_py/`.
+- [X] T014 [US3] Implement the rclpy publisher and subscriber nodes.
+- [X] T015 [US3] Add unit tests for the pub/sub nodes and a colcon test script.
+- [X] T016 [US3] Create a ROS 2 package for a service server and client in `code/module1/service_py/`.
+- [X] T017 [US3] Create a ROS 2 package for an action server and client in `code/module1/action_py/`.
 - [ ] T018 [US3] Design and build a 20-DOF humanoid URDF model in `code/module1/humanoid_description/urdf/humanoid.urdf`.
 - [ ] T019 [P] [US2] Create an interactive URDF viewer component in `website/src/components/URDFViewer.js` and embed it in a lesson.
 - [ ] T020 [P] [US2] Record and edit a video tutorial: "Building a Robot in URDF" (10 min).
