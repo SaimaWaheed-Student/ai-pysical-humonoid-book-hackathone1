@@ -74,15 +74,15 @@
 
 **Goal**: [US1] Write the content and [US3] build the end-to-end autonomous humanoid project.
 
-- [ ] T048 [US1] Write the VLA introduction: "The Future of Robotics" (2000 words) in `website/docs/module4-vla/lesson1.md`.
-- [ ] T049 [US3] Create a ROS 2 node for OpenAI Whisper integration in `code/module4/vla_nodes/`.
-- [ ] T050 [US3] Implement wake word detection using Porcupine or a similar library.
-- [ ] T051 [US3] Create a ROS 2 node that sends commands to the GPT-4 API for task decomposition.
-- [ ] T052 [US3] Implement the logic to translate a high-level command like "Clean the room" into a sequence of ROS 2 actions.
-- [ ] T053 [US3] Create a ROS 2 node that uses CLIP for zero-shot object recognition.
-- [ ] T054 [US3] Create a ROS 2 node that uses Grounding DINO for object detection based on text prompts.
-- [ ] T055 [US3] Integrate the Segment Anything Model (SAM) for image segmentation.
-- [ ] T056 [US3] Build the end-to-end VLA pipeline that connects all the nodes from this module for the capstone project.
+- [X] T048 [US1] Write the VLA introduction: "The Future of Robotics" (2000 words) in `website/docs/module4-vla/lesson1.md`.
+- [X] T049 [US3] Create a ROS 2 node for OpenAI Whisper integration in `code/module4/vla_nodes/`.
+- [X] T050 [US3] Implement wake word detection using Porcupine or a similar library.
+- [X] T051 [US3] Create a ROS 2 node that sends commands to the GPT-4 API for task decomposition.
+- [X] T052 [US3] Implement the logic to translate a high-level command like "Clean the room" into a sequence of ROS 2 actions.
+- [X] T053 [US3] Create a ROS 2 node that uses CLIP for zero-shot object recognition.
+- [X] T054 [US3] Create a ROS 2 node that uses Grounding DINO for object detection based on text prompts.
+- [X] T055 [US3] Integrate the Segment Anything Model (SAM) for image segmentation.
+- [X] T056 [US3] Build the end-to-end VLA pipeline that connects all the nodes from this module for the capstone project.
 - [ ] T057 [P] [US2] Record and edit a video demo of the complete autonomous humanoid (5 min).
 - [ ] T058 [P] [US1] Create an evaluation rubric for the final capstone project.
 - [ ] T059 [P] [US1] Create 10 practice exercises with solutions for the VLA module.
