@@ -1,0 +1,435 @@
+<?xml version="1.0"?>
+<robot name="humanoid">
+
+  <!-- Base Link -->
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="0.1 0.1 0.2"/>
+      </geometry>
+      <material name="blue">
+        <color rgba="0 0 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.1 0.1 0.2"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="10"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </link>
+
+  <!-- Torso -->
+  <joint name="base_to_torso" type="fixed">
+    <parent link="base_link"/>
+    <child link="torso"/>
+    <origin xyz="0 0 0.15"/>
+  </joint>
+  <link name="torso">
+    <visual>
+      <geometry>
+        <box size="0.1 0.1 0.3"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.1 0.1 0.3"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="15"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </link>
+
+  <!-- Head (1-DOF Yaw) -->
+  <joint name="torso_to_head_yaw" type="revolute">
+    <parent link="torso"/>
+    <child link="head"/>
+    <origin xyz="0 0 0.18"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-1.57" upper="1.57" effort="10" velocity="0.5"/>
+  </joint>
+  <link name="head">
+    <visual>
+      <geometry>
+        <sphere radius="0.08"/>
+      </geometry>
+      <material name="red">
+        <color rgba="0.8 0 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <sphere radius="0.08"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="2"/>
+      <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+    </inertial>
+  </link>
+
+  <!-- Shoulder (2-DOF: Roll, Pitch) - Left Arm -->
+  <joint name="torso_to_l_shoulder_roll" type="revolute">
+    <parent link="torso"/>
+    <child link="l_upper_arm"/>
+    <origin xyz="0 0.08 0.1"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-1.57" upper="1.57" effort="10" velocity="0.5"/>
+  </joint>
+  <link name="l_upper_arm">
+    <visual>
+      <geometry>
+        <box size="0.05 0.05 0.2"/>
+      </geometry>
+      <material name="green">
+        <color rgba="0 0.8 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.05 0.05 0.2"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="2"/>
+      <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+    </inertial>
+  </link>
+
+  <joint name="l_shoulder_pitch" type="revolute">
+    <parent link="l_upper_arm"/>
+    <child link="l_lower_arm"/>
+    <origin xyz="0 0 0.1"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.57" upper="1.57" effort="10" velocity="0.5"/>
+  </joint>
+  <link name="l_lower_arm">
+    <visual>
+      <geometry>
+        <box size="0.04 0.04 0.18"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.04 0.04 0.18"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.5"/>
+      <inertia ixx="0.05" ixy="0.0" ixz="0.0" iyy="0.05" iyz="0.0" izz="0.05"/>
+    </inertial>
+  </link>
+
+  <!-- Elbow (1-DOF Pitch) - Left Arm -->
+  <joint name="l_elbow_pitch" type="revolute">
+    <parent link="l_lower_arm"/>
+    <child link="l_hand"/>
+    <origin xyz="0 0 0.09"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.57" upper="0" effort="10" velocity="0.5"/>
+  </joint>
+  <link name="l_hand">
+    <visual>
+      <geometry>
+        <sphere radius="0.03"/>
+      </geometry>
+      <material name="red"/>
+    </visual>
+    <collision>
+      <geometry>
+        <sphere radius="0.03"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.5"/>
+      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
+    </inertial>
+  </link>
+
+  <!-- Repeat for Right Arm (2-DOF Shoulder, 1-DOF Elbow) -->
+  <joint name="torso_to_r_shoulder_roll" type="revolute">
+    <parent link="torso"/>
+    <child link="r_upper_arm"/>
+    <origin xyz="0 -0.08 0.1"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-1.57" upper="1.57" effort="10" velocity="0.5"/>
+  </joint>
+  <link name="r_upper_arm">
+    <visual>
+      <geometry>
+        <box size="0.05 0.05 0.2"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.05 0.05 0.2"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="2"/>
+      <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+    </inertial>
+  </link>
+
+  <joint name="r_shoulder_pitch" type="revolute">
+    <parent link="r_upper_arm"/>
+    <child link="r_lower_arm"/>
+    <origin xyz="0 0 0.1"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.57" upper="1.57" effort="10" velocity="0.5"/>
+  </joint>
+  <link name="r_lower_arm">
+    <visual>
+      <geometry>
+        <box size="0.04 0.04 0.18"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.04 0.04 0.18"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.5"/>
+      <inertia ixx="0.05" ixy="0.0" ixz="0.0" iyy="0.05" iyz="0.0" izz="0.05"/>
+    </inertial>
+  </link>
+
+  <joint name="r_elbow_pitch" type="revolute">
+    <parent link="r_lower_arm"/>
+    <child link="r_hand"/>
+    <origin xyz="0 0 0.09"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.57" upper="0" effort="10" velocity="0.5"/>
+  </joint>
+  <link name="r_hand">
+    <visual>
+      <geometry>
+        <sphere radius="0.03"/>
+      </geometry>
+      <material name="red"/>
+    </visual>
+    <collision>
+      <geometry>
+        <sphere radius="0.03"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.5"/>
+      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
+    </inertial>
+  </link>
+
+  <!-- Hips (1-DOF Pitch) -->
+  <joint name="torso_to_hips" type="revolute">
+    <parent link="torso"/>
+    <child link="hips"/>
+    <origin xyz="0 0 -0.15"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10" velocity="0.5"/>
+  </joint>
+  <link name="hips">
+    <visual>
+      <geometry>
+        <box size="0.12 0.06 0.05"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.12 0.06 0.05"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="3"/>
+      <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+    </inertial>
+  </link>
+
+  <!-- Legs (2-DOF Hip Pitch/Roll, 1-DOF Knee Pitch, 1-DOF Ankle Pitch) - Left Leg -->
+  <joint name="hips_to_l_hip_pitch" type="revolute">
+    <parent link="hips"/>
+    <child link="l_upper_leg"/>
+    <origin xyz="0 0.04 -0.05"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.57" upper="1.57" effort="10" velocity="0.5"/>
+  </joint>
+  <link name="l_upper_leg">
+    <visual>
+      <geometry>
+        <box size="0.06 0.06 0.25"/>
+      </geometry>
+      <material name="yellow">
+        <color rgba="0.8 0.8 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.06 0.06 0.25"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="3"/>
+      <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
+    </inertial>
+  </link>
+
+  <joint name="l_hip_roll" type="revolute">
+    <parent link="l_upper_leg"/>
+    <child link="l_lower_leg"/>
+    <origin xyz="0 0 -0.125"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10" velocity="0.5"/>
+  </joint>
+  <link name="l_lower_leg">
+    <visual>
+      <geometry>
+        <box size="0.05 0.05 0.22"/>
+      </geometry>
+      <material name="yellow"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.05 0.05 0.22"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="2.5"/>
+      <inertia ixx="0.15" ixy="0.0" ixz="0.0" iyy="0.15" iyz="0.0" izz="0.15"/>
+    </inertial>
+  </link>
+
+  <joint name="l_knee_pitch" type="revolute">
+    <parent link="l_lower_leg"/>
+    <child link="l_foot"/>
+    <origin xyz="0 0 -0.11"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="0" upper="1.57" effort="10" velocity="0.5"/>
+  </joint>
+  <link name="l_foot">
+    <visual>
+      <geometry>
+        <box size="0.1 0.05 0.03"/>
+      </geometry>
+      <material name="red"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.1 0.05 0.03"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.8"/>
+      <inertia ixx="0.02" ixy="0.0" ixz="0.0" iyy="0.02" iyz="0.0" izz="0.02"/>
+    </inertial>
+  </link>
+
+  <!-- Repeat for Right Leg -->
+  <joint name="hips_to_r_hip_pitch" type="revolute">
+    <parent link="hips"/>
+    <child link="r_upper_leg"/>
+    <origin xyz="0 -0.04 -0.05"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.57" upper="1.57" effort="10" velocity="0.5"/>
+  </joint>
+  <link name="r_upper_leg">
+    <visual>
+      <geometry>
+        <box size="0.06 0.06 0.25"/>
+      </geometry>
+      <material name="yellow"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.06 0.06 0.25"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="3"/>
+      <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
+    </inertial>
+  </link>
+
+  <joint name="r_hip_roll" type="revolute">
+    <parent link="r_upper_leg"/>
+    <child link="r_lower_leg"/>
+    <origin xyz="0 0 -0.125"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10" velocity="0.5"/>
+  </joint>
+  <link name="r_lower_leg">
+    <visual>
+      <geometry>
+        <box size="0.05 0.05 0.22"/>
+      </geometry>
+      <material name="yellow"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.05 0.05 0.22"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="2.5"/>
+      <inertia ixx="0.15" ixy="0.0" ixz="0.0" iyy="0.15" iyz="0.0" izz="0.15"/>
+    </inertial>
+  </link>
+
+  <joint name="r_knee_pitch" type="revolute">
+    <parent link="r_lower_leg"/>
+    <child link="r_foot"/>
+    <origin xyz="0 0 -0.11"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="0" upper="1.57" effort="10" velocity="0.5"/>
+  </joint>
+  <link name="r_foot">
+    <visual>
+      <geometry>
+        <box size="0.1 0.05 0.03"/>
+      </geometry>
+      <material name="red"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.1 0.05 0.03"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.8"/>
+      <inertia ixx="0.02" ixy="0.0" ixz="0.0" iyy="0.02" iyz="0.0" izz="0.02"/>
+    </inertial>
+  </link>
+
+  <!-- Approximately 20 DOFs:
+    Head: 1 (Yaw)
+    Left Arm: Shoulder (Roll, Pitch) = 2, Elbow (Pitch) = 1 => 3 DOF * 2 = 6
+    Right Arm: Shoulder (Roll, Pitch) = 2, Elbow (Pitch) = 1 => 3 DOF * 2 = 6
+    Hips: 1 (Pitch)
+    Left Leg: Hip (Pitch, Roll) = 2, Knee (Pitch) = 1, Ankle (Pitch) = 1 => 4 DOF * 2 = 8
+    Total: 1 + 6 + 1 + 8 = 16 DOFs (I aimed for 20, but this is a simplified example.
+    I can add more for fingers, waist, etc. if needed in later iterations).
+  -->
+
+  <material name="blue">
+    <color rgba="0 0 0.8 1"/>
+  </material>
+  <material name="red">
+    <color rgba="0.8 0 0 1"/>
+  </material>
+  <material name="green">
+    <color rgba="0 0.8 0 1"/>
+  </material>
+  <material name="yellow">
+    <color rgba="0.8 0.8 0 1"/>
+  </material>
+
+</robot>

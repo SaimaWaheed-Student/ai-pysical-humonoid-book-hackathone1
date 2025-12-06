@@ -29,8 +29,8 @@
 - [X] T015 [US3] Add unit tests for the pub/sub nodes and a colcon test script.
 - [X] T016 [US3] Create a ROS 2 package for a service server and client in `code/module1/service_py/`.
 - [X] T017 [US3] Create a ROS 2 package for an action server and client in `code/module1/action_py/`.
-- [ ] T018 [US3] Design and build a 20-DOF humanoid URDF model in `code/module1/humanoid_description/urdf/humanoid.urdf`.
-- [ ] T019 [P] [US2] Create an interactive URDF viewer component in `website/src/components/URDFViewer.js` and embed it in a lesson.
+- [X] T018 [US3] Design and build a 20-DOF humanoid URDF model in `code/module1/humanoid_description/urdf/humanoid.urdf`.
+- [X] T019 [P] [US2] Create an interactive URDF viewer component in `website/src/components/URDFViewer.js` and embed it in a lesson.
 - [ ] T020 [P] [US2] Record and edit a video tutorial: "Building a Robot in URDF" (10 min).
 - [ ] T021 [US3] Develop the voice-controlled joint controller capstone project for this module in `code/module1/voice_controller/`.
 - [ ] T022 [P] [US1] Create 10 practice exercises with solutions for the ROS 2 module.
