@@ -22,9 +22,9 @@
 
 **Goal**: [US1] Write the content and [US3] create the code examples for the ROS 2 module.
 
-- [ ] T011 [US1] Write lesson "Introduction to ROS 2" (1000 words) in `website/docs/module1-ros2/lesson1.md`.
-- [ ] T012 [P] [US1] Create a comparison table of ROS 1 vs. ROS 2 features in the introduction lesson.
-- [ ] T013 [US3] Create a ROS 2 package for a Python publisher and subscriber in `code/module1/pub_sub_py/`.
+- [X] T011 [US1] Write lesson "Introduction to ROS 2" (1000 words) in `website/docs/module1-ros2/lesson1.md`.
+- [X] T012 [P] [US1] Create a comparison table of ROS 1 vs. ROS 2 features in the introduction lesson.
+- [X] T013 [US3] Create a ROS 2 package for a Python publisher and subscriber in `code/module1/pub_sub_py/`.
 - [ ] T014 [US3] Implement the rclpy publisher and subscriber nodes.
 - [ ] T015 [US3] Add unit tests for the pub/sub nodes and a `colcon test` script.
 - [ ] T016 [US3] Create a ROS 2 package for a service server and client in `code/module1/service_py/`.
