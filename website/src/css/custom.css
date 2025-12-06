@@ -1,0 +1,32 @@
+/**
+ * Any CSS in this file will be applied to all Docusaurus pages.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #00bcd4; /* Neon Greenish-Blue */
+  --ifm-color-primary-dark: #00a4b8;
+  --ifm-color-primary-darker: #0093a6;
+  --ifm-color-primary-darkest: #007a8c;
+  --ifm-color-primary-light: #00d2ec;
+  --ifm-color-primary-lighter: #00e0f2;
+  --ifm-color-primary-lightest: #00f2ff;
+}
+
+/* For dark mode */
+html[data-theme='dark'] {
+  --ifm-background-color: #1a202c; /* Dark Blue */
+  --ifm-code-background: #2d3748; /* Slightly lighter dark blue for code blocks */
+  --ifm-font-color-base: #e2e8f0; /* Light gray for text */
+  --ifm-color-primary: #00bcd4; /* Keep neon for highlights */
+  --ifm-color-primary-dark: #00a4b8;
+}
+
+/* Adjustments for better readability in dark mode */
+.navbar {
+  background-color: var(--ifm-background-color);
+}
+
+.footer {
+  background-color: var(--ifm-background-color);
+}
