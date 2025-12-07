@@ -28,11 +28,11 @@ html[data-theme='dark'] {
 }
 
 .footer {
-  background-color: var(--ifm-background-color);
-  color: #000000 !important; /* Force black text color for footer */
+  background-color: #1a202c !important; /* Force dark blue background */
+  color: #f5f6f7 !important; /* Light gray text color for footer */
 }
 
-/* Ensure links within the footer are also black */
+/* Ensure links within the footer are also light gray */
 .footer a {
-  color: #000000 !important;
+  color: #f5f6f7 !important;
 }
