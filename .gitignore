@@ -1,0 +1,187 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+venv/
+ENV/
+.venv/
+.venv/
+.ENV/
+.ENV/
+.venv.bak/
+.ENV.bak/
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.coverage.xml
+.instance
+.pyre/
+.pytype/
+pytestdebug.log
+*.tmp
+*.swp
+*.swo
+
+# FastAPI / uvicorn
+*.fdb_kind_*
+*.fdb_kind_cache_*
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+*.egg-info/
+*.egg
+*.log
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg-info/
+*.egg
+
+# Environment
+.env
+.env.*
+!.env.example
+.env.local
+.env.production
+.env.test
+.env.development
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Database
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+*.log
+
+# Logs
+*.log
+logs/
+*.out
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Thumbs.db:encryptable
+
+# Testing
+.coverage
+coverage/
+htmlcov/
+.pytest_cache/
+.pytest_cache/*
+.nox/
+.coverage.*
+
+# Documentation
+docs/_build/
+
+# Backend specific (if applicable)
+backend/dist/
+backend/node_modules/
+backend/__pycache__/
+backend/*.pyc
+backend/venv/
+
+# Website specific
+website/build/
+website/node_modules/
+website/dist/
+
+# Docker (if used)
+Dockerfile*
+.dockerignore
+.dockerenv
+.dockerenv.*
+
+# Project specific
+rag-chatbot/venv/
+rag-chatbot/__pycache__/
+rag-chatbot/*.pyc
+rag-chatbot/dist/
+rag-chatbot/build/
+
+# Qdrant and Postgres
+qdrant_storage/
+*.pgpass
+.postgres*
+
+# ML/AI models
+*.model
+*.pb
+*.h5
+*.joblib
+
+# Deployment
+*.pem
+*.key
+*.crt
+*.csr
+*.p12
+*.pfx
+*.p7b
+*.p7c
+*.p7m
+*.p7s
+*.der
+*.jks
+*.keystore
+*.truststore
+
+# Performance and monitoring
+*.prof
+*.dat
+*.stats
+*.trace
+
+# Environment-specific settings
+local_settings.py
+settings_local.py
+
+
+history/
+.qwen/
+.env

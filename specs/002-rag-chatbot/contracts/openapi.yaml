@@ -1,0 +1,866 @@
+openapi: 3.0.3
+info:
+  title: RAG Chatbot API
+  description: API for the RAG Chatbot system that answers questions about book content with proper citations
+  version: 1.0.0
+  contact:
+    name: RAG Chatbot Development Team
+    email: support@rag-chatbot.example.com
+servers:
+  - url: https://api.rag-chatbot.example.com/v1
+    description: Production server
+  - url: https://staging-api.rag-chatbot.example.com/v1
+    description: Staging server
+  - url: http://localhost:8000
+    description: Development server
+paths:
+  /chat:
+    post:
+      summary: Ask a question about book content
+      description: Submit a question to the RAG chatbot and receive an answer with citations
+      operationId: askQuestion
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuestionRequest'
+            example:
+              question: "What is the definition of RAG systems?"
+              book_id: "the-rag-guide-2024"
+              session_id: "sess_abc123"
+      responses:
+        '200':
+          description: Successful response with answer and citations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionResponse'
+              example:
+                answer: "RAG systems combine retrieval and generation mechanisms to provide accurate answers based on book content [Ch. 3, p. 45]."
+                confidence: 0.92
+                sources:
+                  - chapter: 3
+                    page: 45
+                    section: "RAG Fundamentals"
+                    quote: "RAG systems combine retrieval with generation to improve response accuracy."
+                    relevance: 0.95
+                follow_up_questions:
+                  - "How does chunking work in RAG systems?"
+                  - "What are the performance benefits of RAG?"
+        '400':
+          description: Invalid request (e.g., missing required fields)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Question not found in book content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+        - Chat
+      security:
+        - bearerAuth: []
+
+  /chat/with-selection:
+    post:
+      summary: Ask a question with user-selected text context
+      description: Submit a question with highlighted text to get contextual responses
+      operationId: askQuestionWithSelection
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuestionWithSelectionRequest'
+            example:
+              question: "Can you explain more about this concept?"
+              selected_text: "RAG systems combine retrieval with generation mechanisms"
+              book_id: "the-rag-guide-2024"
+              session_id: "sess_abc123"
+      responses:
+        '200':
+          description: Successful response with answer based on selected text
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Question or selection not found in book content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+        - Chat
+      security:
+        - bearerAuth: []
+
+  /upload-book:
+    post:
+      summary: Index a new book for the chatbot
+      description: Upload and index book content for use with the RAG system
+      operationId: uploadBook
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+                - book_title
+                - author
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: Book file (PDF, DOCX, TXT, etc.)
+                book_title:
+                  type: string
+                  description: Title of the book
+                author:
+                  type: string
+                  description: Author of the book
+                publication_date:
+                  type: string
+                  format: date
+                  description: Publication date of the book
+                version:
+                  type: string
+                  description: Version of the book content (default: 1.0.0)
+      responses:
+        '200':
+          description: Book successfully uploaded and indexed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookUploadResponse'
+        '400':
+          description: Invalid request or unsupported file format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+        - Book Management
+      security:
+        - bearerAuth: []
+
+  /chat/{session_id}/history:
+    get:
+      summary: Retrieve chat history for a session
+      description: Get all previous questions and answers for a specific session
+      operationId: getChatHistory
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique identifier for the session
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 10
+          description: Maximum number of history items to return
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+          description: Number of history items to skip
+      responses:
+        '200':
+          description: Chat history retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatHistoryResponse'
+        '404':
+          description: Session not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+        - Chat
+      security:
+        - bearerAuth: []
+
+  /selections:
+    post:
+      summary: Save a user selection
+      description: Save highlighted text from a book for potential future reference
+      operationId: saveSelection
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserSelectionRequest'
+            example:
+              session_id: "sess_abc123"
+              selected_text: "RAG systems combine retrieval with generation mechanisms"
+              book_id: "the-rag-guide-2024"
+              chapter: 3
+              page: 45
+              start_offset: 1234
+              end_offset: 1300
+      responses:
+        '201':
+          description: Selection saved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSelectionResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+        - User Selections
+      security:
+        - bearerAuth: []
+
+  /selections/{session_id}:
+    get:
+      summary: Retrieve selections for a session
+      description: Get all user selections made within a specific session
+      operationId: getSelectionsBySession
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Session ID to retrieve selections for
+      responses:
+        '200':
+          description: Selections retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSelectionsResponse'
+        '404':
+          description: Session not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+        - User Selections
+      security:
+        - bearerAuth: []
+
+  /health:
+    get:
+      summary: Health check endpoint
+      description: Check the health status of the API
+      operationId: healthCheck
+      responses:
+        '200':
+          description: API is healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+        '503':
+          description: API is unhealthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+        - Health
+
+  /search:
+    post:
+      summary: Debug vector search
+      description: Direct vector search for debugging and testing purposes
+      operationId: debugSearch
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRequest'
+            example:
+              query: "What is RAG?"
+              book_id: "the-rag-guide-2024"
+              top_k: 5
+      responses:
+        '200':
+          description: Search results returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+        '400':
+          description: Invalid search request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+        - Debug
+      security:
+        - bearerAuth: []
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    QuestionRequest:
+      type: object
+      required:
+        - question
+        - book_id
+      properties:
+        question:
+          type: string
+          description: The question to ask the chatbot
+          example: "What is the definition of RAG systems?"
+        book_id:
+          type: string
+          description: Identifier of the book to query
+          example: "the-rag-guide-2024"
+        session_id:
+          type: string
+          description: Session identifier to maintain context
+          example: "sess_abc123"
+        include_citations:
+          type: boolean
+          default: true
+          description: Whether to include detailed citations (default: true)
+
+    QuestionWithSelectionRequest:
+      allOf:
+        - $ref: '#/components/schemas/QuestionRequest'
+        - type: object
+          required:
+            - selected_text
+          properties:
+            selected_text:
+              type: string
+              description: Text highlighted by the user to provide context
+              example: "RAG systems combine retrieval with generation mechanisms"
+
+    QuestionResponse:
+      type: object
+      required:
+        - answer
+        - confidence
+        - sources
+      properties:
+        answer:
+          type: string
+          description: The answer to the question with citations
+          example: "RAG systems combine retrieval and generation mechanisms to provide accurate answers based on book content [Ch. 3, p. 45]."
+        confidence:
+          type: number
+          format: float
+          minimum: 0.0
+          maximum: 1.0
+          description: Confidence score for the answer
+          example: 0.92
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Source'
+          description: List of sources used to generate the answer
+        user_context_used:
+          type: boolean
+          description: Whether user selection was used in generating response
+          example: true
+        user_selection_reference:
+          type: string
+          description: Reference to how user selection was used
+          example: "Based on your highlighted passage"
+        follow_up_questions:
+          type: array
+          items:
+            type: string
+          description: Suggested follow-up questions
+          example:
+            - "How does chunking work in RAG systems?"
+            - "What are the performance benefits of RAG?"
+        citations_validated:
+          type: boolean
+          description: Whether citations were validated
+          example: true
+
+    Source:
+      type: object
+      required:
+        - chapter
+        - page
+        - quote
+        - relevance
+      properties:
+        chapter:
+          type: integer
+          description: Chapter number where the information is found
+          example: 3
+        page:
+          type: integer
+          description: Page number where the information is found
+          example: 45
+        section:
+          type: string
+          description: Section title where the information is found
+          example: "RAG Fundamentals"
+        quote:
+          type: string
+          description: Exact text quoted from the book
+          example: "RAG systems combine retrieval with generation to improve response accuracy."
+        relevance:
+          type: number
+          format: float
+          minimum: 0.0
+          maximum: 1.0
+          description: Relevance score of this source to the question
+          example: 0.95
+
+    UserSelectionRequest:
+      type: object
+      required:
+        - session_id
+        - selected_text
+        - book_id
+        - chapter
+        - page
+        - start_offset
+        - end_offset
+      properties:
+        session_id:
+          type: string
+          description: Session identifier
+          example: "sess_abc123"
+        selected_text:
+          type: string
+          description: The exact text that was highlighted
+          example: "RAG systems combine retrieval with generation mechanisms"
+        book_id:
+          type: string
+          description: Identifier of the book where text was selected
+          example: "the-rag-guide-2024"
+        chapter:
+          type: integer
+          description: Chapter number where selection was made
+          example: 3
+        page:
+          type: integer
+          description: Page number where selection was made
+          example: 45
+        start_offset:
+          type: integer
+          description: Character offset where selection starts
+          example: 1234
+        end_offset:
+          type: integer
+          description: Character offset where selection ends
+          example: 1300
+
+    UserSelectionResponse:
+      type: object
+      required:
+        - id
+        - message
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the saved selection
+          example: "sel_789"
+        message:
+          type: string
+          description: Confirmation message
+          example: "Selection saved successfully"
+
+    UserSelectionsResponse:
+      type: object
+      required:
+        - selections
+      properties:
+        selections:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserSelection'
+    
+    UserSelection:
+      type: object
+      required:
+        - id
+        - selected_text
+        - chapter
+        - page
+        - created_at
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the selection
+          example: "sel_789"
+        selected_text:
+          type: string
+          description: The text that was selected
+          example: "RAG systems combine retrieval with generation mechanisms"
+        chapter:
+          type: integer
+          description: Chapter where selection was made
+          example: 3
+        page:
+          type: integer
+          description: Page where selection was made
+          example: 45
+        created_at:
+          type: string
+          format: date-time
+          description: When the selection was made
+          example: "2024-01-15T10:30:00Z"
+
+    ChatHistoryResponse:
+      type: object
+      required:
+        - history
+        - total_count
+      properties:
+        history:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChatHistoryItem'
+        total_count:
+          type: integer
+          description: Total number of chat items in the session
+          example: 15
+        limit:
+          type: integer
+          description: Number of items returned in this response
+          example: 10
+        offset:
+          type: integer
+          description: Number of items skipped
+          example: 0
+
+    ChatHistoryItem:
+      type: object
+      required:
+        - query
+        - response
+        - timestamp
+      properties:
+        query_id:
+          type: string
+          description: Unique identifier for the query
+          example: "qry_123"
+        query:
+          type: string
+          description: The original question
+          example: "What is the definition of RAG systems?"
+        response:
+          $ref: '#/components/schemas/QuestionResponse'
+        timestamp:
+          type: string
+          format: date-time
+          description: When the query was made
+          example: "2024-01-15T10:30:00Z"
+
+    BookUploadResponse:
+      type: object
+      required:
+        - book_id
+        - message
+        - chunk_count
+      properties:
+        book_id:
+          type: string
+          description: Unique identifier for the uploaded book
+          example: "the-rag-guide-2024-v2"
+        title:
+          type: string
+          description: Title of the uploaded book
+          example: "Understanding RAG Systems"
+        author:
+          type: string
+          description: Author of the uploaded book
+          example: "Jane Smith"
+        version:
+          type: string
+          description: Version of the book content
+          example: "1.0.0"
+        message:
+          type: string
+          description: Confirmation message
+          example: "Book successfully uploaded and indexed"
+        chunk_count:
+          type: integer
+          description: Number of chunks the book was split into
+          example: 150
+        indexing_status:
+          type: string
+          enum: [processing, completed, failed]
+          description: Current status of the indexing process
+          example: "completed"
+
+    SearchRequest:
+      type: object
+      required:
+        - query
+        - book_id
+      properties:
+        query:
+          type: string
+          description: The search query string
+          example: "What is RAG?"
+        book_id:
+          type: string
+          description: Identifier of the book to search in
+          example: "the-rag-guide-2024"
+        top_k:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 5
+          description: Number of results to return
+
+    SearchResponse:
+      type: object
+      required:
+        - results
+      properties:
+        query:
+          type: string
+          description: The original search query
+          example: "What is RAG?"
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchResult'
+        query_embedding_time_ms:
+          type: integer
+          description: Time taken to generate query embedding in milliseconds
+          example: 120
+        search_time_ms:
+          type: integer
+          description: Time taken for vector search in milliseconds
+          example: 85
+
+    SearchResult:
+      type: object
+      required:
+        - content
+        - metadata
+        - score
+      properties:
+        content:
+          type: string
+          description: The content of the matched chunk
+          example: "RAG (Retrieval-Augmented Generation) systems combine..."
+        metadata:
+          $ref: '#/components/schemas/ChunkMetadata'
+        score:
+          type: number
+          format: float
+          minimum: 0.0
+          maximum: 1.0
+          description: Similarity score for the match
+          example: 0.87
+
+    ChunkMetadata:
+      type: object
+      required:
+        - chapter
+        - page
+        - book_id
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the chunk
+          example: "ch3_chunk145"
+        book_id:
+          type: string
+          description: Identifier of the book
+          example: "the-rag-guide-2024"
+        chapter:
+          type: integer
+          description: Chapter number
+          example: 3
+        chapter_title:
+          type: string
+          description: Title of the chapter
+          example: "Retrieval Mechanisms"
+        section:
+          type: integer
+          description: Section number
+          example: 2
+        section_title:
+          type: string
+          description: Title of the section
+          example: "Vector Search Optimization"
+        page:
+          type: integer
+          description: Page number
+          example: 45
+        page_end:
+          type: integer
+          description: Ending page number (if chunk spans multiple pages)
+          example: 46
+        tokens:
+          type: integer
+          description: Number of tokens in the chunk
+          example: 412
+        version:
+          type: string
+          description: Version of the book content
+          example: "1.0"
+
+    HealthResponse:
+      type: object
+      required:
+        - status
+        - timestamp
+      properties:
+        status:
+          type: string
+          enum: [healthy, degraded, unhealthy]
+          description: Overall health status
+          example: "healthy"
+        timestamp:
+          type: string
+          format: date-time
+          description: When the health check was performed
+          example: "2024-01-15T10:30:00Z"
+        services:
+          type: object
+          additionalProperties:
+            type: string
+            enum: [available, degraded, unavailable]
+          description: Health status of individual services
+          example:
+            database: "available"
+            vector_store: "available"
+            external_apis: "available"
+        version:
+          type: string
+          description: Current API version
+          example: "1.0.0"
+
+    ErrorResponse:
+      type: object
+      required:
+        - error
+        - message
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: "VALIDATION_ERROR"
+        message:
+          type: string
+          description: Human-readable error message
+          example: "The request was malformed or contained invalid data"
+        details:
+          type: object
+          description: Additional error details (optional)
+          example:
+            field: "question"
+            reason: "Question is required and cannot be empty"
+
+    NotFoundResponse:
+      type: object
+      required:
+        - message
+        - suggestions
+      properties:
+        message:
+          type: string
+          description: Explanation that the content was not found
+          example: "This topic is not covered in Understanding RAG Systems"
+        suggestions:
+          type: array
+          items:
+            type: string
+          description: Suggested alternative topics to explore
+          example:
+            - "You might be interested in Chapter 2 about retrieval mechanisms"
+            - "Try asking about 'vector embeddings' or 'semantic search'"
+        book_title:
+          type: string
+          description: Title of the book that was searched
+          example: "Understanding RAG Systems"
+
+tags:
+  - name: Chat
+    description: Endpoints related to the chatbot functionality
+  - name: User Selections
+    description: Endpoints for managing user-highlighted text
+  - name: Book Management
+    description: Endpoints for managing book content
+  - name: Debug
+    description: Debugging and testing endpoints
+  - name: Health
+    description: Health check endpoints
+
+externalDocs:
+  description: RAG Chatbot Documentation
+  url: https://docs.rag-chatbot.example.com
