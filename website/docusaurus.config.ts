@@ -17,7 +17,11 @@ const config: Config = {
   // Set the production url of your site here
   url: 'https://your-vercel-project-name.vercel.app',
   // Set the /<baseUrl>/ pathname under which your site is served
+<<<<<<< HEAD
   // For Vercel deployment, use just '/'
+=======
+  // For GitHub pages deployment, it is often '/<projectName>/'
+>>>>>>> f144af824c3a49c39fbeaa5f9e619333b41b20e2
   baseUrl: '/',
 
   // Vercel deployment config
