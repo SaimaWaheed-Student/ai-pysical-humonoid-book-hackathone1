@@ -15,13 +15,13 @@ const config: Config = {
   },
 
   // Set the production url of your site here
-  url: 'https://SaimaWaheed-Student.github.io',
+  url: 'https://your-vercel-project-name.vercel.app',
   // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/hackathone-physical-AI-humonoid-robtics--Book/',
+  // For Vercel deployment, use just '/'
+  baseUrl: '/',
 
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
+  // Vercel deployment config
+  // These are not used for Vercel deployment but kept for reference
   organizationName: 'SaimaWaheed-Student', // Usually your GitHub org/user name.
   projectName: 'hackathone-physical-AI-humonoid-robtics--Book', // Usually your repo name.
 
@@ -89,7 +89,7 @@ const config: Config = {
           routeBasePath: '/book', // Make docs available at /book
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-                    editUrl:'https://github.com/SaimaWaheed-Student/hackathone-physical-AI-humonoid-robtics--Book/tree/main/website/',
+          // editUrl:'https://github.com/SaimaWaheed-Student/hackathone-physical-AI-humonoid-robtics--Book/tree/main/website/',
         },
         blog: {
           showReadingTime: true,
@@ -99,7 +99,7 @@ const config: Config = {
           },
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-                    editUrl:'https://github.com/SaimaWaheed-Student/hackathone-physical-AI-humonoid-robtics--Book/tree/main/website/',
+          // editUrl:'https://github.com/SaimaWaheed-Student/hackathone-physical-AI-humonoid-robtics--Book/tree/main/website/',
           // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
