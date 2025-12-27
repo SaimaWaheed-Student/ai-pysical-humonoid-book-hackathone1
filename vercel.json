@@ -10,10 +10,8 @@
       }
     }
   ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "website/build/$1"
-    }
-  ]
+  "github": {
+    "enabled": true,
+    "autoJobCancelation": true
+  }
 }
