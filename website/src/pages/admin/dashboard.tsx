@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '@theme/Layout';
-import { useAuth } from '../../../src/context/AuthContext';
-import ProtectedRoute from '../../../src/components/ProtectedRoute'; // Adjust path as necessary
+import { useAuth } from '../../context/AuthContext';
+import ProtectedRoute from '../../components/ProtectedRoute'; // Adjust path as necessary
 
 interface Task {
   jobId: string;
@@ -16,14 +16,22 @@ interface Task {
 }
 
 const TaskDashboard: React.FC = () => {
-  const { token } = useAuth();
+  // Use a try-catch to safely access the auth context
+  let auth;
+  try {
+    auth = useAuth();
+  } catch (err) {
+    // If context is not available (during static generation), set auth to null
+    auth = null;
+  }
+
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchTasks = async () => {
-      if (!token) {
+      if (!auth || !auth.token) {
         setLoading(false);
         return;
       }
@@ -33,7 +41,7 @@ const TaskDashboard: React.FC = () => {
         // For now, we don't have a list all tasks endpoint, so this is a placeholder.
         // It will fetch a specific task if we hardcode an ID, or just show empty.
         // Once the DB stores tasks, this can be fleshed out.
-        // fetch(`${process.env.BACKEND_URL}/api/tasks`, { headers: { Authorization: `Bearer ${token}` }})
+        // fetch(`${process.env.BACKEND_URL}/api/tasks`, { headers: { Authorization: `Bearer ${auth.token}` }})
         // For now, it's just a UI placeholder.
         setTasks([]); // No tasks to display yet without a proper listing endpoint
       } catch (err: any) {
@@ -44,7 +52,18 @@ const TaskDashboard: React.FC = () => {
     };
 
     fetchTasks();
-  }, [token]);
+  }, [auth]);
+
+  // If auth context is not available during static generation, return a placeholder
+  if (!auth) {
+    return (
+      <Layout title="Task Dashboard" description="Manage and monitor background tasks">
+        <main className="container margin-vert--xl">
+          <div className="text--center">Loading authentication system...</div>
+        </main>
+      </Layout>
+    );
+  }
 
   if (loading) {
     return (

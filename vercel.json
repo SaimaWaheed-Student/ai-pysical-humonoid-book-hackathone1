@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "framework": "none",
   "builds": [
     {
       "src": "website/package.json",
@@ -8,12 +7,6 @@
       "config": {
         "distDir": "build"
       }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "website/build/index.html"
     }
   ]
 }
