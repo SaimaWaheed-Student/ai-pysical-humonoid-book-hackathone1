@@ -1,41 +1,53 @@
-# Website
+# Book AI Website
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+This is the frontend website for the Book AI project, built with Docusaurus.
 
-## Installation
+## About
 
-```bash
-yarn
-```
+This website provides an interactive interface for users to interact with book content using AI. It's built with Docusaurus, a modern static website generator.
 
 ## Local Development
 
+1. Navigate to the website directory:
 ```bash
-yarn start
+cd website
 ```
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
-
-## Build
-
+2. Install dependencies:
 ```bash
-yarn build
+npm install
 ```
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+3. Run the development server:
+```bash
+npm start
+```
+
+The website will be available at `http://localhost:3000`.
+
+## Building for Production
+
+To build the website for production:
+
+```bash
+cd website
+npm run build
+```
+
+The built files will be in the `build` directory.
 
 ## Deployment
 
-Using SSH:
+This website is configured for deployment to Vercel. When deploying to Vercel:
 
-```bash
-USE_SSH=true yarn deploy
-```
+1. Select the `website` directory as the root directory
+2. Vercel will automatically detect this as a Docusaurus project
+3. The build command will be `npm run build`
+4. The output directory will be `build`
 
-Not using SSH:
+## Features
 
-```bash
-GIT_USER=<Your GitHub username> yarn deploy
-```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+- Interactive documentation for the book content
+- Search functionality
+- Responsive design
+- Progressive Web App (PWA) capabilities

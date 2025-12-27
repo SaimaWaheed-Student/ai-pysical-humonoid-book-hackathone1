@@ -1,6 +1,6 @@
 {
-  "rootDirectory": "website",
-  "framework": "docusaurus",
+  "version": 2,
+  "framework": "none",
   "builds": [
     {
       "src": "website/package.json",
@@ -10,8 +10,10 @@
       }
     }
   ],
-  "github": {
-    "enabled": true,
-    "autoJobCancelation": true
-  }
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "website/build/index.html"
+    }
+  ]
 }
