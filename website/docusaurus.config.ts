@@ -18,12 +18,12 @@ const config: Config = {
   url: 'https://SaimaWaheed-Student.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
+  baseUrl: '/ai-pysical-humonoid-book-hackathone1/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'SaimaWaheed-Student', // Usually your GitHub org/user name.
-  projectName: 'hackathone-physical-AI-humonoid-robtics--Book', // Usually your repo name.
+  projectName: 'ai-pysical-humonoid-book-hackathone1', // Usually your repo name.
 
   onBrokenLinks: 'throw',
 
@@ -89,7 +89,7 @@ const config: Config = {
           routeBasePath: '/book', // Make docs available at /book
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-                    editUrl:'https://github.com/SaimaWaheed-Student/hackathone-physical-AI-humonoid-robtics--Book/tree/main/website/',
+                    editUrl:'https://github.com/SaimaWaheed-Student/ai-pysical-humonoid-book-hackathone1/tree/main/website/',
         },
         blog: {
           showReadingTime: true,
@@ -99,7 +99,7 @@ const config: Config = {
           },
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          // editUrl:'https://github.com/SaimaWaheed-Student/hackathone-physical-AI-humonoid-robtics--Book/tree/main/website/',
+          editUrl:'https://github.com/SaimaWaheed-Student/ai-pysical-humonoid-book-hackathone1/tree/main/website/',
           // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
@@ -133,7 +133,7 @@ const config: Config = {
         },
         {to: '/blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/SaimaWaheed-Student/hackathone-physical-AI-humonoid-robtics--Book',
+          href: 'https://github.com/SaimaWaheed-Student/ai-pysical-humonoid-book-hackathone1',
           label: 'GitHub',
           position: 'right',
         },
@@ -189,7 +189,7 @@ const config: Config = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/SaimaWaheed-Student/hackathone-physical-AI-humonoid-robtics--Book',
+              href: 'https://github.com/SaimaWaheed-Student/ai-pysical-humonoid-book-hackathone1',
             },
           ],
         },
